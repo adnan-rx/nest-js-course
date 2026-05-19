@@ -7,6 +7,7 @@ import {
   Body,
   Headers,
   Ip,
+  ParseIntPipe,
 } from '@nestjs/common';
 
 @Controller('users')
@@ -17,17 +18,15 @@ export class UsersController {
     return `This action returns all users with query: ${JSON.stringify(query)}`;
   }
 
-  @Get(':id')
-  @Get(':id/:optional')
+  @Get('/:id')
+  @Get('/:id/:optional')
   public getUsers(
-    @Param('id') id: any,
-    @Param('optional') optional: any,
+    @Param('id', ParseIntPipe) id: number,
     @Query() query: any,
   ): string {
     console.log(id);
-    console.log(optional);
     console.log(query);
-    return `This action returns user with ID: ${id} optional: ${optional} with query: ${JSON.stringify(query)}`;
+    return `This action returns user with ID: ${id} with query: ${JSON.stringify(query)}`;
   }
 
   @Post()
